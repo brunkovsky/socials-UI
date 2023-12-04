@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: socials-UI
+  config:
+    import: "optional:configserver:http://localhost:8888"
+  profiles:
+    active: local
+  data:
+    rest:
+      basePath: "/api/socials/ui"
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/jsp/
+#      suffix: .jsp
+
+server:
+  port: 8099
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    env:
+      post:
+        enabled: true
+
+info:
+  app:
+    name: "Socials UI module"
+    description: "The module intended to expose the data from socials-storage"

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+<div th:switch="${generator}" class="container my-5">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 th:case="null">No schedulers found</h2>
+            <div th:case="*">
+                <h2 class="my-5">Schedulers</h2>
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>Scheduler name</th>
+                        <th>Period</th>
+                        <th>Enabled</th>
+                        <th>Last time fetched</th>
+                        <th>Delete</th>
+                        <th>Force</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="scheduler : ${generator}">
+                        <td th:text="${scheduler.schedulerName}"></td>
+                        <td th:text="${scheduler.period}"></td>
+                        <td th:text="${scheduler.enable}"></td>
+                        <td th:text="${#dates.format(scheduler.lastTimeFetched, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td><a th:href="@{/api/socials/ui/delete/{id}(id=${scheduler.schedulerName})}" class="btn btn-danger"><i class="fas fa fa-times"></i></a></td>
+                        <td><a th:href="@{/api/socials/ui/forceExecute/{id}(id=${scheduler.schedulerName})}" class="btn btn-primary"><i class="fas fa fa-angle-double-right"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <h2 class="mb-5">New scheduler</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="#" th:action="@{addScheduler}" method="post">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="schedulerNameId">Scheduler name</label>
+                        <input type="text" th:name="schedulerName" class="form-control" id="schedulerNameId"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="periodId">Period</label>
+                        <input type="number" th:name="period" class="form-control" id="periodId">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="enableId">Enabled</label>
+                        <input type="checkbox" th:name="enable" class="form-control" id="enableId">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <input type="submit" class="btn btn-primary" value="add scheduler">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
