@@ -19,15 +19,21 @@ public class UiController {
 
 
     @GetMapping
-    public String index(Model model) {
+    public String socials(Model model) {
         model.addAttribute("servicesUrl", uiService.getActiveServices());
-        return "index";
+        return "socials";
     }
 
     @GetMapping("/search")
     public String search(Model model) {
         model.addAttribute("socialItems", uiService.search());
-        return "socialPage";
+        return "search_page";
+    }
+
+    @PostMapping("/searchBy")
+    public String searchBy(Model model) {
+        model.addAttribute("socialItems", uiService.search());
+        return "search_page";
     }
 
     @GetMapping("/generator")

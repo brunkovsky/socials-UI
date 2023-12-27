@@ -13,7 +13,7 @@ Error Handling
 https://www.baeldung.com/java-feign-client-exception-handling
  */
 
-@FeignClient(name = "socialStorageClient", url = "http://localhost:8081/api/socials/storage")
+@FeignClient(name = "socialStorageClient", url = "http://localhost:8081/api/socials/storage?orderBy=createdAt&desc=true")
 public interface StorageClient {
 
     @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE)

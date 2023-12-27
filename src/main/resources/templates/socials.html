@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Index</title>
+    <title>Administrations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -18,6 +18,19 @@
             <a th:href="@{/api/socials/ui/generator}">generator</a>
             <br>
             <a th:href="@{/api/socials/ui/search}">search</a>
+            <form action="#" th:action="@{/api/socials/ui/searchBy}" method="post">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="searchBy">search By</label>
+                        <input type="text" th:name="searchBy" class="form-control" id="searchBy"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mt-5">
+                        <input type="submit" class="btn btn-primary" value="search">
+                    </div>
+                </div>
+            </form>
             <h2>Social extensions:</h2>
             <a th:each="serviceUrl : ${servicesUrl}" th:href="@{${serviceUrl.value}}" th:text="${serviceUrl.key}"></a>
         </div>
